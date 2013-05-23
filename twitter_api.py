@@ -44,22 +44,6 @@ def searchStatuses(twitter_api,keyword,count,loops):
 
     return tweets
 
-def test(twitter_api,keyword,count,loops):
-
-    search_results = twitter_api.search.tweets(q=keyword, count=count)
-    statuses = search_results['statuses']
-
-    for _ in range(loops):
-        try:
-            next_results=search_results['search_metadata']['next_results']
-            kwargs = dict([kv.split('=') for kv in next_results[1:].split("&")])
-            search_results=twitter_api.search.tweets(**kwargs)
-            statuses += search_results['statuses']
-        except:
-            pass
-
-    return statuses
-
 # Takes a list of tweets and prints total words, unique words, diversity,
 # and average words per tweet
 def simpleAnalysis(tweets):
